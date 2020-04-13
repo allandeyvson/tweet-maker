@@ -1,18 +1,23 @@
-const algorithmia = require('algorithmia')
-const algorithmiaApiKey = require('../credentials/algorithmia.json').apiKey
+
+const sentenceBoundaryDetection = require('sbd')
+const dataBase = require('./wikipedia.js')
 
 async function robot(content){
-    await fetchContentFromDataBase(content)
-    //clearContent(content)
-    //breakContentIntoSentences(content)
+    await dataBase(content)
+    breakContentIntoSentences(content)
 
-    async function fetchContentFromDataBase(content){
-        const algorithmiaAuthenticated = algorithmia(algorithmiaApiKey)
-        const wikipediaAlgorithm = algorithmiaAuthenticated.algo("web/WikipediaParser/0.1.2")
-        const wikipediaResponse = await wikipediaAlgorithm.pipe(content.searchTerm)
-        const wikipediaContent = wikipediaResponse.get()
+    function breakContentIntoSentences(content){
+        content.sentences = []
 
-        content.sourceContentOriginal = wikipediaContent.content
+        const sentences = sentenceBoundaryDetection.sentences(content.sourceContentClean)
+        sentences.forEach((sentence) =>{
+            content.sentences.push({
+                text: sentence,
+                keywords: [],
+                images: []
+            })
+        })
     }
+
 }
 module.exports = robot
