@@ -1,0 +1,24 @@
+{
+  "name": "tweet-maker",
+  "version": "1.0.0",
+  "description": "um robô capaz de criar tweets",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/allandeyvson/tweet-maker.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/allandeyvson/tweet-maker/issues"
+  },
+  "homepage": "https://github.com/allandeyvson/tweet-maker#readme",
+  "dependencies": {
+    "algorithmia": "^0.3.10",
+    "readline-sync": "^1.4.10",
+    "sbd": "^1.0.17"
+  }
+}
