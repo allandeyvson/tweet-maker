@@ -6,12 +6,17 @@ async function robot(content){
     toCleanContent(content)
 
     async function fetchContentFromDataBase(content){
+        content.sourceContentOriginal = ''
         const algorithmiaAuthenticated = algorithmia(algorithmiaApiKey)
         const wikipediaAlgorithm = algorithmiaAuthenticated.algo("web/WikipediaParser/0.1.2")
-        const wikipediaResponse = await wikipediaAlgorithm.pipe(content.searchTerm)
-        const wikipediaContent = wikipediaResponse.get()
-
-        content.sourceContentOriginal = wikipediaContent.content
+        try{
+          const wikipediaResponse = await wikipediaAlgorithm.pipe(content.searchTerm)
+          const wikipediaContent = wikipediaResponse.get()
+          content.sourceContentOriginal = wikipediaContent.content
+        } catch (e){
+          console.log("Por favor, refine seus termos de busca: ")
+          console.log(e)
+        }
     }
 
     function toCleanContent(content) {
