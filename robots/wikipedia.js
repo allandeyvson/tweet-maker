@@ -9,14 +9,9 @@ async function robot(content){
         content.sourceContentOriginal = ''
         const algorithmiaAuthenticated = algorithmia(algorithmiaApiKey)
         const wikipediaAlgorithm = algorithmiaAuthenticated.algo("web/WikipediaParser/0.1.2")
-        try{
-          const wikipediaResponse = await wikipediaAlgorithm.pipe(content.searchTerm)
-          const wikipediaContent = wikipediaResponse.get()
-          content.sourceContentOriginal = wikipediaContent.content
-        } catch (e){
-          console.log("Por favor, refine seus termos de busca: ")
-          console.log(e)
-        }
+        const wikipediaResponse = await wikipediaAlgorithm.pipe(content.searchTerm)
+        const wikipediaContent = wikipediaResponse.get()
+        content.sourceContentOriginal = wikipediaContent.content
     }
 
     function toCleanContent(content) {
